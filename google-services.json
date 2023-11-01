@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757788498421",
+    "project_id": "smart-wallet-application",
+    "storage_bucket": "smart-wallet-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757788498421:android:d64e89c7673c462da728bc",
+        "android_client_info": {
+          "package_name": "com.zpendragon.SmartWallet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6jB1BdRozsFIY37yJX3RVdl4QPM3ne78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
