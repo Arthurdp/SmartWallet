@@ -13,23 +13,18 @@ export default function HelpModal(props: HelpModalProps) {
 
     const helpText = {
         title: "Como usar o comando de voz?",
-        titleInfo: "Para começar, toque e segure no botão de microfone para iniciar a captura de voz e solte quando concluir o comando.\n\n Siga as 4 regras a seguir:",
+        titleInfo: "Para começar, toque e segure no botão de + para iniciar a captura de voz e solte quando concluir o comando.\n\n Siga as 3 regras a seguir:",
         topics: [
             {
                 title: "1 - Existem 6 palavras chave para reconhecer os dados de uma entrada",
                 info: ["Despesa, Receita, Valor, Local, Pagamento e Tag (Ex: Alimentação, Compras...)"],
             },
             {
-                title: "2 - O tipo de entrada deve ser especificado",
-                info: ["Diga apenas ou Despesa ou Receita"],
+                title: "2 - O tipo de entrada e o valor devem ser especificados",
+                info: ["Diga apenas ou Despesa ou Receita para o tipo de entrada"],
             },
             {
-                title: "3 - As palavras devem ser faladas nessa ordem:",
-                info: ["Despesa ou Receita - Valor - Local - Pagamento - Tag"],
-            },
-            {
-                title: "4 - Para cancelar a captura de voz, fale 'Cancelar' a qualquer momento",
-
+                title: "3 - Para cancelar a captura de voz, fale 'Cancelar' a qualquer momento",
             },
             {
                 title: "Exemplos de fala para captura de voz:",
@@ -38,7 +33,7 @@ export default function HelpModal(props: HelpModalProps) {
                     "3 - 'Receita, Salário do mês, Valor 1000 reais'"]
             },
             {
-                title: "Caso não possa falar. O botão '+' mais abaixo permite adicionar uma entrada manualmente",
+                title: "Caso não possa falar. Apenas pressione o botão + para escrever manualmente os dados",
             },
         ]
     }

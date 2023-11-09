@@ -21,8 +21,7 @@
       "googleServicesFile": "./google-services.json",
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/wallet-logo-icon.png",
-        "backgroundColor": "transparent"
+        "foregroundImage": "./assets/wallet-logo-icon.png"
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
@@ -30,7 +29,7 @@
       "package": "com.zpendragon.SmartWallet"
     },
     "web": {
-      "favicon": "./assets/wallet-logo.png"
+      "favicon": "./assets/wallet-logo-icon.png"
     },
     "plugins": [
       "@react-native-firebase/app",

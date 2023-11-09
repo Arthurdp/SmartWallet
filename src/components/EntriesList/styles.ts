@@ -1,6 +1,61 @@
 import { ImageProps } from 'react-native';
 import styled from "styled-components/native";
 
+export const HistoryBox = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+  width: 90%;
+  height: 100%;
+  border-radius: 12px;
+  padding: 12px 16px;
+`;
+
+export const DayFilter = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const DaysFilterText = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.NUNITOMEDIUM};
+  color: ${props => props.textColor};
+  font-size: 14px;
+`;
+
+export const DropdownButton = styled.TouchableOpacity`
+  padding: 500px;
+`;
+
+export const TimeResume = styled.View`
+  display: flex;
+  flex-direction: row;
+  padding : 10px 0px 15px;
+  justify-content: space-between;
+`;
+
+export const TimeResumeBox = styled.View`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const TimeResumeInfo = styled.View`
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+`;
+
+export const TimeResumeTitle = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.NUNITOSEMIBOLD};
+  color: ${({ theme }) => theme.COLORS.DISABLE};
+  font-size: 13px;
+`;
+
+export const TimeResumeValue = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.IBMPLEXSANSSEMIBOLD};
+  color: ${({ theme }) => theme.COLORS.DEFAULT};
+  font-size: ${ props => props.fontSize };
+`;
+
 export const FilterButtons = styled.View`
   display: flex;
   flex-direction: row;
@@ -19,7 +74,7 @@ export const FilterButton = styled.TouchableOpacity`
 `;
 
 export const FilterText = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.NUNITOBOLD};
+  font-family: ${({ theme }) => theme.FONTS.NUNITOSEMIBOLD};
   color: ${props => props.textColor};
   font-size: 17px;
 `;

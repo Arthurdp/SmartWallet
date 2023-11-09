@@ -39,7 +39,7 @@ export default function Account() {
             Alert.alert("Sucesso", "Perfil atualizado com sucesso.")
             
         } catch (error) {
-            Alert.alert("Error", "Verifique se os dados foram preenchidos corretamente.")
+            Alert.alert("Erro", "Verifique se os dados foram preenchidos corretamente.")
         }
     }
 
@@ -48,7 +48,7 @@ export default function Account() {
             await auth().signOut();
             nav.replace("Login");
         } catch (error) {
-            Alert.alert("Error", "Aconteceu um erro inesperado. Tente novamente mais tarde.")
+            Alert.alert("Erro", "Aconteceu um erro inesperado. Tente novamente mais tarde.")
         }
     }
 

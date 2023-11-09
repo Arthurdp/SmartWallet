@@ -5,7 +5,7 @@ import { Home } from "@screens/Home/Home";
 import Account from "@screens/Account/Account";
 import theme from "@styles/theme";
 import AddEntryModal from "@components/Modals/AddEntryModal/AddEntryModal";
-import { AddButton, FilterText } from "@screens/Home/styles";
+import { AddButton } from "@screens/Home/styles";
 
 interface MainFlowProps {
 
@@ -20,11 +20,11 @@ export default function TabNavigationName(props: MainFlowProps) {
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon;
-                    if (route.name === "Home") {
+                    if (route.name == "Home") {
                         icon = focused
                             ? require("@assets/icons/home-focus-icon.png")
                             : require("@assets/icons/home-icon.png")
-                    } else if (route.name === "Account") {
+                    } else if (route.name == "Account") {
                         icon = focused
                             ? require("@assets/icons/user-focus-icon.png")
                             : require("@assets/icons/user-icon-screen.png")

@@ -87,7 +87,7 @@ export const TextInputStyled = styled.TextInput`
     border-radius: 5px;
 `;
 
-export const TextInputDate = styled.TextInput`
+export const TextInputDate = styled.TouchableOpacity`
     color: ${({ theme }) => theme.COLORS.DEFAULT};
     font-size: 16px;
     width: 100%;
@@ -96,6 +96,14 @@ export const TextInputDate = styled.TextInput`
     padding: 5px 10px;
     border: 1px solid ${({ theme }) => theme.COLORS.DISABLE};
     border-radius: 5px;
+`;
+
+export const DateText = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.NUNITOMEDIUM};
+  color: ${ props => props.textColor };
+  font-size: 16px;
+  text-align: left;
+  padding: 3px 0px;
 `;
 
 export const EditButtonsSection = styled.View`

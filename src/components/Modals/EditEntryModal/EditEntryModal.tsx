@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { Modal } from "react-native";
-import { AddEntryForm, Button, ButtonText, CancelButton, Container, DateInput, EditButtonsSection, ImageStyle, InputLabel, InputSection, InputSectionDate, RadioButton, RadioButtonText, RadioButtons, TextInputDate, TextInputStyled } from "./style";
+import { AddEntryForm, Button, ButtonText, CancelButton, Container, DateInput, DateText, EditButtonsSection, ImageStyle, InputLabel, InputSection, InputSectionDate, RadioButton, RadioButtonText, RadioButtons, TextInputDate, TextInputStyled } from "./style";
 import theme from "@styles/theme";
 import { Entry } from "@models/Entry";
 import { Historic } from "@models/Historic";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 
 interface EditEntryModalProps {
     showModal: boolean;
@@ -27,19 +29,19 @@ export default function EditEntryModal(props: EditEntryModalProps) {
     const [time, setTime] = React.useState('');
     const [tag, setTag] = React.useState(null);
 
-    const [errorMessage, setErrorMessage] = React.useState(null);
-    const [errorMessageDate, setErrorMessageDate] = React.useState(null);
-    const [errorMessageValue, setErrorMessageValue] = React.useState("Por favor, verifique os campos e tente novamente.");
+    const [showTimePicker, setShowTimePicker] = React.useState(false);
 
+    const [errorMessage, setErrorMessage] = React.useState("Por favor, verifique os campos e tente novamente.");
     useEffect(() => {
         setType(props.editEntry.type)
         setDescription(props.editEntry.description)
         setValue(props.editEntry.value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }))
         setLocal(props.editEntry.local)
         setPayment(props.editEntry.payment)
-        setDate(props.editEntry.time.toLocaleDateString("pt-BR"))
-        setTime(props.editEntry.time.toLocaleTimeString("pt-BR"))
+        setDate(moment(props.editEntry.time).format("DD/MM/YYYY"))
+        setTime(moment(props.editEntry.time).format("HH:mm"))
         setTag(props.editEntry.tag)
+        
     }, [props.showModal])
 
     const validate = () => {
@@ -52,7 +54,7 @@ export default function EditEntryModal(props: EditEntryModalProps) {
             setErrorMessage("Descrição é Obrigatório!");
             error = false;
         }
-        if (value === "") {
+        if (value == "") {
             setErrorMessage("Valor é Obrigatório!");
             error = false;
         }
@@ -67,13 +69,6 @@ export default function EditEntryModal(props: EditEntryModalProps) {
         }
         if (time == null) {
             setErrorMessage("Hora é Obrigatório!");
-            error = false;
-        }
-
-        let dateString = formatStringDate(date, time)
-        let newDate: Date = new Date(dateString);
-        if (newDate.toString() === "Invalid Date") {
-            setErrorMessage("Data Inválida!");
             error = false;
         }
         return error
@@ -92,20 +87,6 @@ export default function EditEntryModal(props: EditEntryModalProps) {
             .replace(',', '.')) // Transforma a virgula em ponto.;
     }
 
-    const resetFields = () => {
-        setType(null);
-        setDescription(null);
-        setValue('');
-        setLocal(null);
-        setPayment(null);
-        setDate(null);
-        setTime(null);
-        setTag(null);
-        setErrorMessage(null);
-        setErrorMessageDate(null);
-        setErrorMessageValue(null);
-    }
-
     const edit = () => {
         validate();
         if (validate()) {
@@ -120,11 +101,11 @@ export default function EditEntryModal(props: EditEntryModalProps) {
             )
             props.historic.dayEntryes.find(dayEntry => {
                 if (dayEntry.date.toLocaleDateString() == props.editEntry.time.toLocaleDateString()) {
-                    dayEntry.updateData();
+                    dayEntry.updateDayData();
                 }
             })
-            props.historic.updateData();
-            props.setRenderSwitch(!props.renderSwitch);
+            props.historic.updateHistoricData();
+            props.setRenderSwitch(prev => !prev);
             props.setEditEntry(new Entry(0, "", 0, "", "", new Date(), "", ""));
             props.setShowModal(false);
         }
@@ -135,9 +116,18 @@ export default function EditEntryModal(props: EditEntryModalProps) {
 
     const deleteEntry = (entry: Entry) => {
         props.historic.deleteEntry(entry)
-        props.historic.updateData();
+        
+        props.setRenderSwitch(prev => !prev);
+    }
 
-        props.setRenderSwitch(!props.renderSwitch);
+    const onChangeTime = (event, selectedTime) => {
+        if (event.type == 'dismissed') {
+            setShowTimePicker(false);
+            return
+        }
+        const currentTime = selectedTime || time;
+        setShowTimePicker(false);
+        setTime(moment(currentTime).format("HH:mm"));
     }
 
     return (
@@ -192,7 +182,6 @@ export default function EditEntryModal(props: EditEntryModalProps) {
                             placeholder="Ex. 10,50..."
                             placeholderTextColor={theme.COLORS.DISABLE}
                             value={value}
-                            errorMessage={errorMessageValue}
                             onChangeText={setValue}>
                         </TextInputStyled>
                     </InputSection>
@@ -219,13 +208,19 @@ export default function EditEntryModal(props: EditEntryModalProps) {
 
                     <DateInput>
                         <InputSectionDate>
-                            <InputLabel>Hora {'(00:00:00)'}</InputLabel>
+                            {showTimePicker &&
+                                <DateTimePicker
+                                    value={props.editEntry.time}
+                                    onChange={onChangeTime}
+                                    mode="time"
+                                    is24Hour={true}
+                                    display="default"
+                                />
+                            }
+                            <InputLabel>Hora</InputLabel>
                             <TextInputDate
-                                placeholder="00:00:00"
-                                placeholderTextColor={theme.COLORS.DISABLE}
-                                value={time}
-                                errorMessage={errorMessageDate}
-                                onChangeText={setTime}>
+                                onPress={() => { setShowTimePicker(true) }}>
+                                <DateText textColor={time == "" ? theme.COLORS.DISABLE : theme.COLORS.PRIMARY}>{time == "" ? "00:00" : time}</DateText>
                             </TextInputDate>
                         </InputSectionDate>
                     </DateInput>

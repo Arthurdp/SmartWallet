@@ -37,14 +37,14 @@ export class Historic {
 
     removeEmptyDayEntries() {
         for (let dayEntry of this.dayEntryes) {
-            if (dayEntry.entryes.length === 0) {
+            if (dayEntry.entryes.length == 0) {
                 this.removeDayEntry(dayEntry);
             }
         }
         return this;
     }
 
-    updateData() {
+    updateHistoricData() {
         this.calculateResume();
         this.orderDayEntriesByDate();
         this.removeEmptyDayEntries();
@@ -52,15 +52,8 @@ export class Historic {
     }
 
     addDayEntry(dayEntry: DayEntry) {
-
-        if (this.dayEntryes.includes(dayEntry)) {
-
-        }
-
         this.dayEntryes.push(dayEntry);
-        this.balance += dayEntry.balance;
-        this.income += dayEntry.income;
-        this.expense += dayEntry.expense;
+        this.updateHistoricData();
         return this;
     }
 
@@ -69,20 +62,21 @@ export class Historic {
         this.balance -= dayEntry.balance;
         this.income -= dayEntry.income;
         this.expense -= dayEntry.expense;
+        this.updateHistoricData();
         return this;
     }
 
     deleteEntry(entry: Entry) {
         let verifyDay: DayEntry;
         verifyDay = this.dayEntryes.find(dayEntry => {
-            if (dayEntry.date.toDateString() === entry.time.toDateString()) {
+            if (dayEntry.date.toDateString() == entry.time.toDateString()) {
                 dayEntry.removeEntry(entry.index);
 
                 return dayEntry;
             }
         });
         if (verifyDay !== undefined) {
-            this.calculateResume();
+            this.updateHistoricData();
         }
         return this;
     }

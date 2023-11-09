@@ -12,11 +12,13 @@ export default {
     SPENDING : "#EB1F39",
     GRADIENT_GREEN: ["#245630", "rgba(0, 123, 30, 0.92)"],
     GRADIENT_RED: ["#562424", "rgba(123, 0, 0, 0.92)"],
+    GRADIENT_GREEN_BUTTON: ["#245630", "rgba(0, 143, 30, 1)"],
+    GRADIENT_RED_BUTTON: ["#562424", "rgba(143, 0, 0, 1)"],
     GRADIENT_GREEN2: ["#245630", "rgba(0, 123, 30, 0.32)"],
     GRADIENT_RED2: ["#562424", "rgba(123, 0, 0, 0.32)"],
     BACKGROUND_2 : "#F8FFF0",
     MICROFONE_BUTTON : "#37503D",
-    MODAL_BACKGROUND : "rgba(255, 255, 255, 0.92)",
+    MODAL_BACKGROUND : "rgba(255, 255, 255, 0.95)",
   },
 
   FONTS: {

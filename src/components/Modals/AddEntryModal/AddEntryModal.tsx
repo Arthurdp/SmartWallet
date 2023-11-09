@@ -1,8 +1,9 @@
-import React from "react";
-import { Modal } from "react-native";
-import { AddEntryForm, Button, ButtonText, Container, DateInput, ImageStyle, InputLabel, InputSection, InputSectionDate, RadioButton, RadioButtonText, RadioButtons, TextInputDate, TextInputStyled } from "./style";
+import React, { useEffect } from "react";
+import { Alert, Modal, Platform } from "react-native";
+import { AddEntryForm, Button, ButtonText, Container, DateInput, DateText, ImageStyle, InputLabel, InputSection, InputSectionDate, RadioButton, RadioButtonText, RadioButtons, TextInputDate, TextInputStyled } from "./style";
 import theme from "@styles/theme";
 import moment from "moment";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 interface AddEntryModalProps {
     showModal: boolean;
@@ -25,6 +26,9 @@ export default function AddEntryModal(props: AddEntryModalProps) {
     const [errorMessageDate, setErrorMessageDate] = React.useState(null);
     const [errorMessageValue, setErrorMessageValue] = React.useState(null);
 
+    const [showDatePicker, setShowDatePicker] = React.useState(false);
+    const [showTimePicker, setShowTimePicker] = React.useState(false);
+
     const validate = () => {
         let error = true;
         if (type == null) {
@@ -35,7 +39,7 @@ export default function AddEntryModal(props: AddEntryModalProps) {
             setErrorMessage("Descrição é Obrigatório!");
             error = false;
         }
-        if (value === "") {
+        if (value == "") {
             setErrorMessage("Valor é Obrigatório!");
             error = false;
         }
@@ -50,13 +54,6 @@ export default function AddEntryModal(props: AddEntryModalProps) {
         }
         if (time == null) {
             setErrorMessage("Hora é Obrigatório!");
-            error = false;
-        }
-
-        let dateString = formatStringDate(date, time)
-        let newDate: Date = new Date(dateString);
-        if (newDate.toString() === "Invalid Date") {
-            setErrorMessage("Data Inválida!");
             error = false;
         }
         return error
@@ -81,8 +78,8 @@ export default function AddEntryModal(props: AddEntryModalProps) {
         setValue('');
         setLocal(null);
         setPayment(null);
-        setDate(null);
-        setTime(null);
+        setDate('');
+        setTime('');
         setTag(null);
         setErrorMessage(null);
         setErrorMessageDate(null);
@@ -101,13 +98,32 @@ export default function AddEntryModal(props: AddEntryModalProps) {
                 tag,
                 type
             )
-
             resetFields();
             props.setShowModal(false);
         }
         else {
-            alert(errorMessage);
+            Alert.alert("Erro", errorMessage);
         }
+    }
+
+    const onChangeDate = (event, selectedDate) => {
+        if (event.type == 'dismissed') {
+            setShowDatePicker(false);
+            return
+        }
+        const currentDate = selectedDate || date;
+        setShowDatePicker(false);
+        setDate(moment(currentDate).format("DD/MM/YYYY"));
+    }
+
+    const onChangeTime = (event, selectedTime) => {
+        if (event.type == 'dismissed') {
+            setShowTimePicker(false);
+            return
+        }
+        const currentTime = selectedTime || time;
+        setShowTimePicker(false);
+        setTime(moment(currentTime).format("HH:mm"));
     }
 
     return (
@@ -189,23 +205,35 @@ export default function AddEntryModal(props: AddEntryModalProps) {
 
                     <DateInput>
                         <InputSectionDate>
-                            <InputLabel>Data {'(DD/MM/AAAA)'}</InputLabel>
+                            {showDatePicker &&
+                                <DateTimePicker
+                                    value={new Date()}
+                                    onChange={onChangeDate}
+                                    mode="date"
+                                    is24Hour={true}
+                                    display="default"
+                                />
+                            }
+                            <InputLabel>Data</InputLabel>
                             <TextInputDate
-                                placeholder="DD/MM/AAAA"
-                                placeholderTextColor={theme.COLORS.DISABLE}
-                                value={date}
-                                errorMessage={errorMessageDate}
-                                onChangeText={setDate}>
+                                onPress={() => { setShowDatePicker(true) }}>
+                                <DateText textColor={date == "" ? theme.COLORS.DISABLE : theme.COLORS.PRIMARY}>{date == "" ? "DD/MM/YYYY" : date}</DateText>
                             </TextInputDate>
                         </InputSectionDate>
                         <InputSectionDate>
-                            <InputLabel>Hora {'(00:00:00)'}</InputLabel>
+                            {showTimePicker &&
+                                <DateTimePicker
+                                    value={new Date()}
+                                    onChange={onChangeTime}
+                                    mode="time"
+                                    is24Hour={true}
+                                    display="default"
+                                />
+                            }
+                            <InputLabel>Hora</InputLabel>
                             <TextInputDate
-                                placeholder="00:00:00"
-                                placeholderTextColor={theme.COLORS.DISABLE}
-                                value={time}
-                                errorMessage={errorMessageDate}
-                                onChangeText={setTime}>
+                                onPress={() => { setShowTimePicker(true) }}>
+                                <DateText textColor={time == "" ? theme.COLORS.DISABLE : theme.COLORS.PRIMARY}>{time == "" ? "00:00" : time}</DateText>
                             </TextInputDate>
                         </InputSectionDate>
                     </DateInput>

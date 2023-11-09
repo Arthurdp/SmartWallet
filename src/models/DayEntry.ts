@@ -16,12 +16,12 @@ export class DayEntry {
         this.entryes = entryes;
     }
 
-    calculateResume() {
+    calculateDayResume() {
         this.balance = 0;
         this.income = 0;
         this.expense = 0;
         this.entryes.forEach(entrye => {
-            if (entrye.type === "despesa") {
+            if (entrye.type == "despesa") {
                 this.expense += entrye.value;
             } else {
                 this.income += entrye.value;
@@ -31,33 +31,21 @@ export class DayEntry {
         return this;
     }
 
-    updateData() {
-        this.calculateResume();
+    updateDayData() {
+        this.calculateDayResume();
         this.orderEntriesByDate();
         return this;
     }
 
     addEntry(entry: Entry) {
         this.entryes.push(entry);
-        if (entry.type === "despesa") {
-            this.expense += entry.value;
-        } else {
-            this.income += entry.value;
-        }
-        this.balance = this.income - this.expense;
-
+        this.updateDayData();
         return this
     }
 
     removeEntry(id: number) {
-        let entry: Entry = this.entryes.splice(id, 1)[0];
-        if (entry.type === "despesa") {
-            this.expense -= entry.value;
-        } else {
-            this.income -= entry.value;
-        }
-        this.balance = this.income - this.expense;
-        this.resetIndex();
+        this.entryes.splice(id, 1)[0];
+        this.updateDayData();
         return this;
     }
 
@@ -72,6 +60,7 @@ export class DayEntry {
         this.entryes.sort((a, b) => {
             return new Date(b.time).getTime() - new Date(a.time).getTime();
         });
+        this.resetIndex();
         return this;
     }
 }

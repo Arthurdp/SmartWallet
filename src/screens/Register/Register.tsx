@@ -44,7 +44,7 @@ export default function Register(props: RegisterProps) {
                     nav.replace("Login")
                 }
             } catch (error) {
-                Alert.alert("Error", "Por favor, verifique se os dados foram preenchidos corretamente e tente novamente.")
+                Alert.alert("Erro", "Por favor, verifique se os dados foram preenchidos corretamente e tente novamente.")
             }
         }
     }

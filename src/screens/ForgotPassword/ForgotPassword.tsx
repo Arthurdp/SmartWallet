@@ -28,7 +28,7 @@ export default function ForgotPassword() {
                 nav.goBack()
 
             } catch (error) {
-                Alert.alert("Error", "Este email não foi encontrado. Verifique e tente novamente.")
+                Alert.alert("Erro", "Este email não foi encontrado. Verifique e tente novamente.")
             }
         }
     }

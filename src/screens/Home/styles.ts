@@ -4,6 +4,8 @@ import { ImageProps } from "react-native";
 import styled from "styled-components/native";
 
 export const SafeAreaViewStyled = styled(SafeAreaView)`
+position: relative;
+top: 20px;
 `;
 
 export const Container = styled.View`
@@ -12,14 +14,14 @@ flex: 1;
 
 export const HelpButton = styled.TouchableOpacity`
   position: absolute;
-  top: 15%;
-  right: 0;
+  top: 20px;
+  right: 10px;
 `;
 
 export const HelpButtonText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.NUNITOMEDIUM};
   font-size: 16px;
-  color: ${({ theme }) => theme.COLORS.WHITE};
+  color: ${({ theme }) => theme.COLORS.CLOUD};
 `;
 
 // Header
@@ -34,32 +36,19 @@ export const LinearGradientStyled = styled(LinearGradient).attrs({
 export const ContentHeader = styled.View`
   display: flex;
   flex-direction: column;
-  padding: 40px;
-  padding-bottom: 100px;
+  padding: 15px;
+  height: 45%;
 `;
 
-export const HeaderButtons = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  position : relative;
-  top: 20px;
-`;
-
-export const AddButtonView = styled.View`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const MicrophoneButton = styled.TouchableOpacity`
+export const AddButtonView = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   border-radius: 100px;
   margin: auto;
+  /* position: relative;
+  top: 20px; */
   background-color: ${props => props.bgColor};
 `;
 
@@ -88,15 +77,17 @@ export const MicrophoneImage = styled.Image<ImageProps>`
   `;
 
 export const HearingTitle = styled.Text`
-  font-size: 22px;
+  font-size: 16px;
   font-family: ${({ theme }) => theme.FONTS.NUNITOMEDIUM};
   color: ${({ theme }) => theme.COLORS.WHITE};
   text-align: center;
+  padding: 10px;
   text-shadow: 0px 2px 4px rgba(255, 255, 255, 0.25);
+  /* position: relative;
+  top: 20px; */
 `;
 
 export const TotalBalance = styled.Text`
-  margin-top: 10px;
   font-family: ${({ theme }) => theme.FONTS.NUNITOBOLD};
   color: ${props =>
     props.balance < 0 ? "#dda8a8" : "#A9DDA8"};
@@ -120,60 +111,12 @@ export const ContentBody = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_2};
 `;
 
-export const HistoryBox = styled.View`
-  background-color: ${({ theme }) => theme.COLORS.WHITE};
-  width: 90%;
-  height: 79%;
-  position: relative;
-  top: -60px;
-  border-radius: 12px;
-  padding: 12px 16px;
-`;
-
-
-export const DayFilter = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const DropdownButton = styled.TouchableOpacity`
-  padding: 500px;
-`;
-
-export const FilterText = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.NUNITOMEDIUM};
-  color: ${({ theme }) => theme.COLORS.DISABLE};
-  text-align: center;
-`;
-
-export const TimeResume = styled.View`
-  display: flex;
-  flex-direction: row;
-  padding : 10px 15px 15px;
-  justify-content: space-between;
-`;
-
-export const TimeResumeBox = styled.View`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const TimeResumeInfo = styled.View`
+export const HistoricView = styled.View`
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
-`;
-
-export const TimeResumeTitle = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.NUNITOSEMIBOLD};
-  color: ${({ theme }) => theme.COLORS.DISABLE};
-  font-size: 13px;
-`;
-
-export const TimeResumeValue = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.IBMPLEXSANSSEMIBOLD};
-  color: ${({ theme }) => theme.COLORS.DEFAULT};
-  font-size: 17px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -7%;
+  height: 62%;
 `;
